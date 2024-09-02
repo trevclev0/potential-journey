@@ -13,7 +13,7 @@ public class DbTable {
 
     public boolean hasEntry(String key) {
         for (DbEntry entry : this.entries) {
-            if (entry.getKey().equals(key)) {
+            if (entry.hasKey(key)) {
                 return true;
             }
         }
@@ -22,7 +22,7 @@ public class DbTable {
 
     public DbEntry getEntry(String key) {
         for (DbEntry entry : this.entries) {
-            if (entry.getKey().equals(key)) {
+            if (entry.hasKey(key)) {
                 return entry;
             }
         }
@@ -43,6 +43,7 @@ public class DbTable {
 
         for (DbEntry entry : this.entries) {
             entriesStr += entry.toString();
+            System.out.println("EntriesStr: " + entriesStr);
         }
 
         return String.format("[%s]", entriesStr);

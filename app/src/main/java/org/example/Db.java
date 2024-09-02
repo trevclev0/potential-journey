@@ -23,20 +23,20 @@ public class Db implements iDb {
         }
 
         if (!table.hasEntry(key)) {
-            entry = new DbEntry(key, val);
+            entry = new DbEntry();
             table.addEntry(entry);
         } else {
             entry = table.getEntry(key);
         }
 
-        entry.setValue(val);
+        entry.addMapping(key, val);
     }
 
     public String get(String namespace, String key) {
         if (!data.containsKey(namespace) || !data.get(namespace).hasEntry(key)) {
             return null;
         }
-        return data.get(namespace).getEntry(key).getValue();
+        return data.get(namespace).getEntry(key).getMappingVal(key);
     }
 
     public void delete(String namespace, String key) {
@@ -59,7 +59,7 @@ public class Db implements iDb {
         if (!data.containsKey(namespace)) {
             return "";
         }
-        return "";
+        return this.toString();
     }
 
     public String getAll(String namespace, String prefix) {
@@ -74,8 +74,9 @@ public class Db implements iDb {
         String dataStr = "";
         for (Map.Entry<String, DbTable> table : data.entrySet()) {
             dataStr += table.toString();
+            System.out.println("DataStr: " + dataStr);
         }
 
-        return String.format("The current db table: %s", dataStr);
+        return dataStr;
     }
 }

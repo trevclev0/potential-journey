@@ -37,12 +37,25 @@ class DbTest {
         assertEquals(valB, db.get(namespaceB, keyB));
     }
 
-    // void dbGetAll() {
-    // String namespaceInsect = "Insects";
-    // String keyName = "name";
-    // String valBeetle = "Beetle";
-    // assertNull(db.get(namespaceInsect, keyName));
-    // db.
-
-    // }
+    @Test
+    void dbGetAll() {
+        // Arrange
+        String namespaceInsect = "Insects";
+        String keyName = "name";
+        String keySize = "size";
+        String valBig = "big";
+        String valSmall = "small";
+        String valBeetle = "Beetle";
+        String valAnt = "Ant";
+        String expectedString = "[{\"name\":\"Ant\",\"size\":\"small\"},{\"name\":\"Beetle\",\"size\":\"big\"}]";
+        // Verify db is empty
+        assertNull(db.get(namespaceInsect, keyName));
+        // Act by setting the expected data into the database
+        db.set(namespaceInsect, keyName, valBeetle);
+        db.set(namespaceInsect, keyName, valAnt);
+        db.set(namespaceInsect, keySize, valSmall);
+        db.set(namespaceInsect, keySize, valBig);
+        // Assert correct string output
+        assertEquals(expectedString, db.getAll(namespaceInsect));
+    }
 }

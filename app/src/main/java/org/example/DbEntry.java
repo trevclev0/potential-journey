@@ -1,41 +1,38 @@
 package org.example;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class DbEntry {
-    private String key;
-    private String value;
+    HashMap<String, String> mappings;
 
-    DbEntry(String key, String value) {
-        this.setKey(key);
-        this.setValue(value);
+    DbEntry() {
+        this.mappings = new HashMap<String, String>();
     }
 
-    public String getKey() {
-        return this.key;
+    public void addMapping(String key, String value) {
+        this.mappings.put(key, value);
     }
 
-    public String getValue() {
-        return this.value;
+    public void removeMapping(String key) {
+        this.mappings.remove(key);
     }
 
-    public void setKey(String key) {
-        this.key = key;
+    public String getMappingVal(String key) {
+        return this.mappings.get(key);
     }
 
-    public void setValue(String value) {
-        this.value = value;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == null || this.getClass() != obj.getClass()) {
-            return false;
-        }
-
-        return this.key == ((DbEntry) obj).key;
+    public boolean hasKey(String key) {
+        return this.mappings.containsKey(key);
     }
 
     @Override
     public String toString() {
-        return String.format("%s: %s", key, value);
+        String entryStringBuildeString = "";
+        for (Map.Entry<String, String> mapping : this.mappings.entrySet()) {
+            entryStringBuildeString += String.format("%s:%s", mapping.getKey(), mapping.getValue());
+        }
+
+        return String.format("{%s}", entryStringBuildeString);
     }
 }
