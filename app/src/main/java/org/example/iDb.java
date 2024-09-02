@@ -6,4 +6,8 @@ public interface iDb {
     public String get(String namespace, String key);
 
     public void delete(String namespace, String key);
+
+    public String getAll(String namespace);
+
+    public String getAll(String namespace, String prefix);
 }
